@@ -18,7 +18,7 @@
       Glitch<span>DLC</span>
     </a>
     <div class="nav-links">
-      <a href="register.html" class="btn-nav">Регистрация</a>
+      <a href="/register" class="btn-nav">Регистрация</a>
     </div>
   </div>
 </nav>
@@ -48,7 +48,7 @@
     </form>
 
     <div class="auth-footer">
-      Нет аккаунта? <a href="register.html">Создать</a>
+      Нет аккаунта? <a href="/register">Создать</a>
     </div>
   </div>
 </div>
@@ -56,7 +56,7 @@
 <script src="api.js"></script>
 <script>
   if (localStorage.getItem('gdlc_token')) {
-    window.location.href = 'dashboard.html';
+    window.location.href = '/dashboard';
   }
 
   document.getElementById('login-form').addEventListener('submit', async (e) => {
@@ -73,7 +73,7 @@
       localStorage.setItem('gdlc_token', data.token);
       localStorage.setItem('gdlc_user',  JSON.stringify(data.user));
       showMsg('ok', 'Готово, перенаправляем...');
-      setTimeout(() => window.location.href = 'dashboard.html', 600);
+      setTimeout(() => window.location.href = '/dashboard', 600);
     } catch (err) {
       showMsg('error', err.message || 'Ошибка входа');
       btn.disabled = false;
