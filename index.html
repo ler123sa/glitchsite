@@ -54,13 +54,24 @@
     </p>
 
     <div class="hero-btns fade-in d3">
-      <a href="/register" class="btn-primary">
-        Начать бесплатно
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      <a href="/register" class="btn-cta-main">
+        <span class="btn-cta-shimmer"></span>
+        <span class="btn-cta-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m13 2-2 2.5h3L12 7"/><path d="M10 14v-3a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v3"/><path d="M5 17a7 7 0 0 1 14 0"/><path d="M19 17v3a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-3"/></svg>
+        </span>
+        <span class="btn-cta-text">
+          Купить клиент
+          <span class="btn-cta-sub">от 149 ₽</span>
+        </span>
+        <span class="btn-cta-arrow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </span>
       </a>
-      <a href="#features" class="btn-ghost">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-        Узнать больше
+      <a href="#features" class="btn-cta-secondary">
+        <span class="btn-cta-icon-sec">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </span>
+        Смотреть модули
       </a>
     </div>
 
@@ -71,15 +82,15 @@
       </div>
       <div class="hero-stat">
         <div class="value">1.21.4</div>
-        <div class="label">Версия MC</div>
+        <div class="label">Fabric</div>
+      </div>
+      <div class="hero-stat">
+        <div class="value">120+</div>
+        <div class="label">FPS-friendly</div>
       </div>
       <div class="hero-stat">
         <div class="value">24/7</div>
         <div class="label">Поддержка</div>
-      </div>
-      <div class="hero-stat">
-        <div class="value">99.9%</div>
-        <div class="label">Аптайм</div>
       </div>
     </div>
   </div>
@@ -114,10 +125,10 @@
 
       <div class="feature f-tall">
         <span class="feature-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24M14.83 14.83l4.24 4.24M14.83 9.17l4.24-4.24M14.83 9.17l3.53-3.53M4.93 19.07l4.24-4.24"/><circle cx="12" cy="12" r="3"/></svg>
         </span>
-        <h3>Защита уровня enterprise</h3>
-        <p>Многоступенчатая обфускация: Grunt, ProGuard и Remap. HWID-привязка через лоудер, anti-debug и проверка целостности на лету.</p>
+        <h3>Точный таргетинг</h3>
+        <p>Кастомный AimAssist с интерполяцией, GCD-aware ротации и FOV-проверки. Хиты идут стабильно даже на дальних дистанциях и в плотных боях.</p>
       </div>
 
       <div class="feature f-third">
@@ -154,39 +165,40 @@
     <div class="section-head">
       <div class="section-eyebrow">Тарифы</div>
       <h2 class="section-title">Выбери свой план</h2>
-      <p class="section-sub">Начни бесплатно или сразу получи полный доступ ко всем функциям.</p>
+      <p class="section-sub">Все тарифы дают полный доступ ко всем модулям и обновлениям. Разница только в сроке.</p>
     </div>
 
     <div class="pricing-grid">
 
       <div class="plan">
-        <div class="plan-name">Basic</div>
+        <div class="plan-name">Месяц</div>
         <div class="plan-price">
-          <span class="num">0 ₽</span>
-        </div>
-        <div class="plan-desc">Стартовый набор для знакомства с клиентом</div>
-        <ul class="plan-features">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Базовые render-модули</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Party-система</li>
-          <li class="muted"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Combat-модули</li>
-          <li class="muted"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Приоритетная поддержка</li>
-        </ul>
-        <a href="/register" class="btn-plan">Начать</a>
-      </div>
-
-      <div class="plan popular">
-        <div class="plan-badge">Популярное</div>
-        <div class="plan-name">Premium</div>
-        <div class="plan-price">
-          <span class="num">299 ₽</span>
+          <span class="num">149 ₽</span>
           <span class="per">/ месяц</span>
         </div>
-        <div class="plan-desc">Полный доступ ко всем функциям клиента</div>
+        <div class="plan-desc">Чтобы попробовать и затащить</div>
         <ul class="plan-features">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Все модули без ограничений</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Party-система</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Авто-обновления клиента</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Поддержка в Discord</li>
+        </ul>
+        <a href="/register" class="btn-plan">Купить</a>
+      </div>
+
+      <div class="plan popular">
+        <div class="plan-badge">Выгодно</div>
+        <div class="plan-name">3 месяца</div>
+        <div class="plan-price">
+          <span class="num">399 ₽</span>
+          <span class="per">за 3 мес</span>
+        </div>
+        <div class="plan-desc">133 ₽/мес — экономия 11%</div>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Всё из месячной</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>3 месяца без забот</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Приоритетная поддержка</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ранний доступ к обновлениям</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ранний доступ к фичам</li>
         </ul>
         <a href="/register" class="btn-plan btn-plan-primary">Купить</a>
       </div>
@@ -194,19 +206,34 @@
       <div class="plan">
         <div class="plan-name">Lifetime</div>
         <div class="plan-price">
-          <span class="num">1499 ₽</span>
+          <span class="num">699 ₽</span>
           <span class="per">навсегда</span>
         </div>
         <div class="plan-desc">Один платёж — пожизненный доступ</div>
         <ul class="plan-features">
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Всё из Premium</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Всё из 3 месяцев</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Доступ навсегда</li>
-          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>VIP статус в Discord</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>VIP роль в Discord</li>
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Закрытые бета-версии</li>
         </ul>
         <a href="/register" class="btn-plan">Купить</a>
       </div>
 
+    </div>
+
+    <!-- HWID reset addon -->
+    <div class="addon-card">
+      <div class="addon-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
+      </div>
+      <div class="addon-text">
+        <h4>Сброс HWID</h4>
+        <p>Сменил ПК или переустановил систему? Сбрось привязку HWID и привяжи к новому железу.</p>
+      </div>
+      <div class="addon-price">
+        <span class="addon-num">349 ₽</span>
+        <a href="/register" class="btn-plan addon-btn">Купить сброс</a>
+      </div>
     </div>
   </div>
 </section>
@@ -221,20 +248,20 @@
 
     <div class="features-grid">
       <div class="feature f-half">
-        <h3>Это безопасно?</h3>
-        <p>Лоудер использует HWID-привязку и серверную проверку лицензии. Без активной подписки и совпадения HWID запуск невозможен.</p>
+        <h3>Какие сервера поддерживаются?</h3>
+        <p>Клиент работает на любых популярных серверах: ReallyWorld, FunTime, SunRise и других. Активные античиты обходим.</p>
       </div>
       <div class="feature f-half">
         <h3>Какая версия Minecraft нужна?</h3>
         <p>Поддерживается Minecraft 1.21.4 на Fabric. Установщик в составе лоудера сделает всё сам.</p>
       </div>
       <div class="feature f-half">
-        <h3>Можно вернуть деньги?</h3>
-        <p>Да, в течение 24 часов после покупки, если ты ещё не активировал лицензию на ПК.</p>
+        <h3>Как работает HWID-привязка?</h3>
+        <p>Лицензия привязывается к железу при первом запуске. Если меняешь ПК — можно докупить сброс HWID за 349 ₽.</p>
       </div>
       <div class="feature f-half">
         <h3>Где скачивать клиент?</h3>
-        <p>В личном кабинете после покупки подписки. Лоудер сам подтянет актуальную сборку.</p>
+        <p>В личном кабинете после оплаты подписки. Лоудер сам подтянет актуальную сборку и обновится при выходе апдейтов.</p>
       </div>
     </div>
   </div>
