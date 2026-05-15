@@ -18,6 +18,10 @@
       Glitch<span>DLC</span>
     </a>
     <div class="nav-links">
+      <a href="/admin" class="btn-nav" id="admin-link" style="display:none;">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:14px;height:14px;margin-right:4px;vertical-align:-2px;"><path d="M8 14s5-2.5 5-7V3.5L8 1.5 3 3.5V7c0 4.5 5 7 5 7Z"/></svg>
+        Админка
+      </a>
       <button class="logout-btn" id="logout-btn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
         Выйти
@@ -139,6 +143,12 @@
       document.getElementById('info-email').textContent    = me.email;
       document.getElementById('info-role').textContent     = me.role;
       document.getElementById('info-hwid').textContent     = me.hwid ? me.hwid.substring(0, 16) + '…' : 'не привязан';
+
+      // Если админ или owner — показать ссылку на админку
+      if (me.role === 'admin' || me.role === 'owner') {
+        const adminLink = document.getElementById('admin-link');
+        if (adminLink) adminLink.style.display = 'inline-flex';
+      }
 
       const sub = me.subscription;
       const badge = document.getElementById('sub-badge');
