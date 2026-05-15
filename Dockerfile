@@ -1,15 +1,16 @@
 FROM nginx:alpine
 
-# копируем сайт
+# копируем сайт в html-папку
 COPY . /usr/share/nginx/html
 
-# чистим дефолтный конфиг
-RUN rm -f /etc/nginx/conf.d/default.conf
+# шаблон nginx-конфига (НЕ в /etc/nginx/templates/, иначе автоскрипт сломает $uri)
+COPY nginx.conf.template /tmp/nginx.conf.template
 
-# наш шаблон nginx (PORT подставится при старте)
-COPY nginx.conf.template /etc/nginx/templates/default.conf.template
+# чистим дефолтный конфиг и мусор из html
+RUN rm -f /etc/nginx/conf.d/default.conf \
+ && rm -f /usr/share/nginx/html/nginx.conf.template \
+          /usr/share/nginx/html/Dockerfile \
+          /usr/share/nginx/html/.dockerignore
 
-# не оставляем шаблон в html-папке
-RUN rm -f /usr/share/nginx/html/nginx.conf.template /usr/share/nginx/html/Dockerfile /usr/share/nginx/html/.dockerignore
-
-CMD ["/bin/sh", "-c", "envsubst '${PORT}' < /etc/nginx/templates/default.conf.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"]
+# при старте подменяем ТОЛЬКО $PORT, остальные nginx-переменные не трогаем
+CMD ["/bin/sh", "-c", "envsubst '$PORT' < /tmp/nginx.conf.template > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"]
