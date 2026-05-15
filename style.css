@@ -814,3 +814,178 @@ button { font-family: inherit; }
 .fade-in.d3 { animation-delay: .24s; }
 .fade-in.d4 { animation-delay: .32s; }
 @keyframes fadeIn { to { opacity: 1; transform: translateY(0); } }
+
+
+/* ─────────────────────────────────────────────────────────────
+   HERO CTA BUTTONS — премиум стиль
+   ───────────────────────────────────────────────────────────── */
+
+.btn-cta-main {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px 14px 14px;
+  border-radius: 14px;
+  background:
+    linear-gradient(135deg, #7c3aed 0%, #8b5cf6 50%, #a855f7 100%);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: -.005em;
+  border: 1px solid rgba(192, 132, 252, .5);
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform .2s, box-shadow .25s;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, .04) inset,
+    0 1px 0 rgba(255, 255, 255, .25) inset,
+    0 14px 36px -12px rgba(139, 92, 246, .85),
+    0 0 60px -10px rgba(168, 85, 247, .5);
+}
+.btn-cta-main:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, .06) inset,
+    0 1px 0 rgba(255, 255, 255, .3) inset,
+    0 18px 44px -10px rgba(139, 92, 246, 1),
+    0 0 80px -10px rgba(168, 85, 247, .6);
+}
+
+/* shimmer */
+.btn-cta-shimmer {
+  position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(
+    105deg,
+    transparent 30%,
+    rgba(255, 255, 255, .25) 45%,
+    rgba(255, 255, 255, .35) 50%,
+    rgba(255, 255, 255, .25) 55%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  pointer-events: none;
+}
+.btn-cta-main:hover .btn-cta-shimmer {
+  animation: shimmer 1.1s ease;
+}
+@keyframes shimmer {
+  to { transform: translateX(100%); }
+}
+
+.btn-cta-icon {
+  width: 36px; height: 36px;
+  flex-shrink: 0;
+  border-radius: 9px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(255, 255, 255, .14);
+  border: 1px solid rgba(255, 255, 255, .18);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15);
+}
+.btn-cta-icon svg { width: 18px; height: 18px; }
+
+.btn-cta-text {
+  display: flex; flex-direction: column; align-items: flex-start;
+  line-height: 1.1;
+  font-size: .98rem;
+}
+.btn-cta-sub {
+  font-size: .72rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, .72);
+  margin-top: 3px;
+  letter-spacing: .01em;
+}
+
+.btn-cta-arrow {
+  display: inline-flex;
+  margin-left: 4px;
+  transition: transform .25s;
+}
+.btn-cta-arrow svg { width: 16px; height: 16px; }
+.btn-cta-main:hover .btn-cta-arrow { transform: translateX(4px); }
+
+/* secondary */
+.btn-cta-secondary {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  padding: 14px 22px;
+  border-radius: 14px;
+  background: rgba(20, 20, 32, .55);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--line-strong);
+  color: var(--text);
+  font-weight: 600;
+  font-size: .95rem;
+  transition: border-color .2s, background .2s, transform .2s;
+}
+.btn-cta-secondary:hover {
+  border-color: rgba(139, 92, 246, .55);
+  background: rgba(40, 30, 70, .55);
+  transform: translateY(-1px);
+}
+.btn-cta-icon-sec {
+  width: 28px; height: 28px;
+  border-radius: 8px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(139, 92, 246, .15);
+  border: 1px solid rgba(139, 92, 246, .25);
+  color: var(--brand-2);
+}
+.btn-cta-icon-sec svg { width: 12px; height: 12px; margin-left: 1px; }
+
+/* старые классы оставляем — пригодятся в других местах */
+
+/* ─────────────────────────────────────────────────────────────
+   ADDON CARD (HWID reset)
+   ───────────────────────────────────────────────────────────── */
+.addon-card {
+  margin-top: 24px;
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 22px 26px;
+  border-radius: var(--r-xl);
+  background:
+    linear-gradient(180deg, rgba(22, 22, 36, .55), rgba(15, 15, 24, .55));
+  border: 1px solid var(--line);
+  flex-wrap: wrap;
+}
+.addon-card:hover { border-color: rgba(139, 92, 246, .25); }
+
+.addon-icon {
+  flex-shrink: 0;
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, rgba(244, 114, 182, .2), rgba(168, 85, 247, .15));
+  border: 1px solid rgba(244, 114, 182, .25);
+  color: var(--pink);
+}
+.addon-icon svg { width: 22px; height: 22px; }
+
+.addon-text { flex: 1; min-width: 220px; }
+.addon-text h4 { font-size: 1.05rem; font-weight: 700; margin-bottom: 4px; letter-spacing: -.01em; }
+.addon-text p { color: var(--text-2); font-size: .88rem; line-height: 1.5; }
+
+.addon-price {
+  display: flex; align-items: center; gap: 14px;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+.addon-num {
+  font-size: 1.6rem; font-weight: 800; letter-spacing: -.02em;
+  background: linear-gradient(180deg, #fff, #c4c8d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.addon-btn { padding: 10px 20px !important; }
+
+@media (max-width: 600px) {
+  .addon-card { flex-direction: column; align-items: flex-start; text-align: left; }
+  .addon-price { margin-left: 0; width: 100%; justify-content: space-between; }
+}
