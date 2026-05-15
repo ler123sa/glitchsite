@@ -20,23 +20,15 @@ server {
     add_header X-Content-Type-Options "nosniff" always;
     add_header Referrer-Policy "strict-origin-when-cross-origin" always;
 
-    # static cache
+    # static cache (более точная регексп, чтобы не ломать html)
     location ~* \.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
         expires 7d;
         add_header Cache-Control "public, max-age=604800";
         try_files $uri =404;
     }
 
-    # 301 .html → clean URL (адресная строка без .html)
-    location ~ ^/(.+)\.html$ {
-        return 301 /$1;
-    }
-
-    # чистые URL: /login → /login.html
+    # / → index.html, /login → /login.html (без .html в адресной строке)
     location / {
-        try_files $uri $uri.html $uri/ /index.html;
+        try_files $uri $uri.html $uri/ =404;
     }
-
-    # 404 → красивая 404 страница (или index)
-    error_page 404 /index.html;
 }
