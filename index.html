@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GlitchDLC — приватный Minecraft клиент</title>
+  <meta name="description" content="GlitchDLC — приватный клиент для Minecraft 1.21.4 с продвинутыми модулями, party-системой и надёжной защитой." />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="/">
+      <span class="logo-mark"></span>
+      Glitch<span>DLC</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">Возможности</a>
+      <a href="#pricing">Тарифы</a>
+      <a href="#faq">FAQ</a>
+      <a href="dashboard.html" class="btn-nav btn-primary-nav" id="nav-dashboard">Кабинет</a>
+      <a href="login.html"     class="btn-nav" id="nav-login">Войти</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow g1"></div>
+  <div class="hero-glow g2"></div>
+  <div class="hero-glow g3"></div>
+
+  <div class="container">
+    <div class="eyebrow fade-in">
+      <span class="dot"></span>
+      <span>Minecraft 1.21.4</span>
+      <span class="pill">Fabric</span>
+    </div>
+
+    <h1 class="fade-in d1">
+      Приватный клиент<br />
+      <span class="gradient">нового поколения</span>
+    </h1>
+
+    <p class="hero-sub fade-in d2">
+      GlitchDLC — это продвинутые модули, выверенный визуал и собственная party-система.
+      Сделано для тех, кто играет всерьёз.
+    </p>
+
+    <div class="hero-btns fade-in d3">
+      <a href="register.html" class="btn-primary">
+        Начать бесплатно
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#features" class="btn-ghost">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        Узнать больше
+      </a>
+    </div>
+
+    <div class="hero-stats fade-in d4">
+      <div class="hero-stat">
+        <div class="value">40+</div>
+        <div class="label">Модулей</div>
+      </div>
+      <div class="hero-stat">
+        <div class="value">1.21.4</div>
+        <div class="label">Версия MC</div>
+      </div>
+      <div class="hero-stat">
+        <div class="value">24/7</div>
+        <div class="label">Поддержка</div>
+      </div>
+      <div class="hero-stat">
+        <div class="value">99.9%</div>
+        <div class="label">Аптайм</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">Возможности</div>
+      <h2 class="section-title">Всё, что нужно, в одном клиенте</h2>
+      <p class="section-sub">От продвинутого боевого AI до собственной party-системы — каждый модуль вылизан до мелочей.</p>
+    </div>
+
+    <div class="features-grid">
+
+      <div class="feature f-wide">
+        <span class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14.5 17.5 3-3M9 11l3-3M2 22l3-3M22 2l-3 3M16 6l-3 3M11 11l-7 7M19 11l-3 3M6 18l-3 3"/><path d="m6 14 4 4M14 6l4 4"/></svg>
+        </span>
+        <h3>Combat AI</h3>
+        <p>KillAura, CrystalSpammer, AutoTotem с гибкими настройками таргетинга и таймингов. Каждый модуль продуман и протестирован в реальных боях.</p>
+      </div>
+
+      <div class="feature f-third">
+        <span class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </span>
+        <h3>Низкие задержки</h3>
+        <p>Оптимизированный рендер и стабильный FPS даже на слабых ПК.</p>
+      </div>
+
+      <div class="feature f-tall">
+        <span class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+        </span>
+        <h3>Защита уровня enterprise</h3>
+        <p>Многоступенчатая обфускация: Grunt, ProGuard и Remap. HWID-привязка через лоудер, anti-debug и проверка целостности на лету.</p>
+      </div>
+
+      <div class="feature f-third">
+        <span class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </span>
+        <h3>Party-система</h3>
+        <p>Метки, координаты тиммейтов и общая карта в реальном времени.</p>
+      </div>
+
+      <div class="feature f-half">
+        <span class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>
+        </span>
+        <h3>Авто-обновления</h3>
+        <p>Лоудер сам подтягивает свежие сборки клиента — никаких ручных переустановок.</p>
+      </div>
+
+      <div class="feature f-half">
+        <span class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>
+        </span>
+        <h3>Кастомизация HUD</h3>
+        <p>Wings, Trails, BeautifulHands, ViewModel и десятки render-модулей с тонкой настройкой.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section pricing" id="pricing">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">Тарифы</div>
+      <h2 class="section-title">Выбери свой план</h2>
+      <p class="section-sub">Начни бесплатно или сразу получи полный доступ ко всем функциям.</p>
+    </div>
+
+    <div class="pricing-grid">
+
+      <div class="plan">
+        <div class="plan-name">Basic</div>
+        <div class="plan-price">
+          <span class="num">0 ₽</span>
+        </div>
+        <div class="plan-desc">Стартовый набор для знакомства с клиентом</div>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Базовые render-модули</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Party-система</li>
+          <li class="muted"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Combat-модули</li>
+          <li class="muted"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Приоритетная поддержка</li>
+        </ul>
+        <a href="register.html" class="btn-plan">Начать</a>
+      </div>
+
+      <div class="plan popular">
+        <div class="plan-badge">Популярное</div>
+        <div class="plan-name">Premium</div>
+        <div class="plan-price">
+          <span class="num">299 ₽</span>
+          <span class="per">/ месяц</span>
+        </div>
+        <div class="plan-desc">Полный доступ ко всем функциям клиента</div>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Все модули без ограничений</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Party-система</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Приоритетная поддержка</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Ранний доступ к обновлениям</li>
+        </ul>
+        <a href="register.html" class="btn-plan btn-plan-primary">Купить</a>
+      </div>
+
+      <div class="plan">
+        <div class="plan-name">Lifetime</div>
+        <div class="plan-price">
+          <span class="num">1499 ₽</span>
+          <span class="per">навсегда</span>
+        </div>
+        <div class="plan-desc">Один платёж — пожизненный доступ</div>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Всё из Premium</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Доступ навсегда</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>VIP статус в Discord</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Закрытые бета-версии</li>
+        </ul>
+        <a href="register.html" class="btn-plan">Купить</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-eyebrow">FAQ</div>
+      <h2 class="section-title">Частые вопросы</h2>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature f-half">
+        <h3>Это безопасно?</h3>
+        <p>Лоудер использует HWID-привязку и серверную проверку лицензии. Без активной подписки и совпадения HWID запуск невозможен.</p>
+      </div>
+      <div class="feature f-half">
+        <h3>Какая версия Minecraft нужна?</h3>
+        <p>Поддерживается Minecraft 1.21.4 на Fabric. Установщик в составе лоудера сделает всё сам.</p>
+      </div>
+      <div class="feature f-half">
+        <h3>Можно вернуть деньги?</h3>
+        <p>Да, в течение 24 часов после покупки, если ты ещё не активировал лицензию на ПК.</p>
+      </div>
+      <div class="feature f-half">
+        <h3>Где скачивать клиент?</h3>
+        <p>В личном кабинете после покупки подписки. Лоудер сам подтянет актуальную сборку.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <a class="logo" href="/">
+        <span class="logo-mark"></span>
+        Glitch<span>DLC</span>
+      </a>
+      <p>© 2026 GlitchDLC. Не связан с Mojang Studios.</p>
+      <div class="footer-links">
+        <a href="#" target="_blank" rel="noopener">Discord</a>
+        <a href="#" target="_blank" rel="noopener">Telegram</a>
+        <a href="#" target="_blank" rel="noopener">Поддержка</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // показываем нужные кнопки в nav
+  const token = localStorage.getItem('gdlc_token');
+  if (token) {
+    document.getElementById('nav-login').style.display = 'none';
+  } else {
+    document.getElementById('nav-dashboard').style.display = 'none';
+  }
+
+  // mouse-tracking glow для feature карточек
+  document.querySelectorAll('.feature').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty('--mx', x + '%');
+      card.style.setProperty('--my', y + '%');
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Личный кабинет — GlitchDLC</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="/">
+      <span class="logo-mark"></span>
+      Glitch<span>DLC</span>
+    </a>
+    <div class="nav-links">
+      <button class="logout-btn" id="logout-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        Выйти
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="dashboard">
+  <div class="hero-glow g3" style="top:-150px; left:-100px; opacity:.25;"></div>
+
+  <div class="dashboard-inner fade-in">
+
+    <div class="dash-header">
+      <div>
+        <h1 id="welcome-title">Загрузка...</h1>
+        <p class="welcome">Управляй подпиской и скачивай клиент</p>
+      </div>
+      <span class="sub-badge inactive" id="sub-badge">
+        <span class="dot"></span>
+        <span id="sub-badge-text">Загрузка...</span>
+      </span>
+    </div>
+
+    <!-- Карточки -->
+    <div class="cards-row">
+      <div class="info-card">
+        <div class="label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+          Статус
+        </div>
+        <div class="value" id="sub-status">—</div>
+      </div>
+      <div class="info-card">
+        <div class="label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+          Тариф
+        </div>
+        <div class="value" id="sub-plan">—</div>
+      </div>
+      <div class="info-card">
+        <div class="label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          Действует до
+        </div>
+        <div class="value" id="sub-expires">—</div>
+      </div>
+    </div>
+
+    <!-- Скачать лоудер -->
+    <div class="download-section">
+      <div class="head">
+        <span class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </span>
+        <h3>Лоудер GlitchDLC</h3>
+      </div>
+      <p id="download-desc">Скачай лоудер, авторизуйся и запускай GlitchDLC одной кнопкой.</p>
+
+      <div class="download-meta">
+        <span><strong>Windows 10/11</strong></span>
+        <span class="pip"></span>
+        <span>Minecraft 1.21.4</span>
+        <span class="pip"></span>
+        <span>Fabric Loader</span>
+      </div>
+
+      <a href="#" class="btn-download disabled" id="download-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Скачать лоудер
+      </a>
+    </div>
+
+    <!-- Аккаунт инфо -->
+    <div class="info-card">
+      <div class="label">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Информация об аккаунте
+      </div>
+      <div class="account-info">
+        <div class="row"><span class="k">Никнейм</span><span class="v" id="info-username">—</span></div>
+        <div class="row"><span class="k">Email</span><span class="v" id="info-email">—</span></div>
+        <div class="row"><span class="k">Роль</span><span class="v" id="info-role">—</span></div>
+        <div class="row"><span class="k">HWID</span><span class="v" id="info-hwid">—</span></div>
+      </div>
+    </div>
+
+    <!-- Купить подписку -->
+    <div class="download-section" id="buy-section" style="display:none; margin-top:20px;">
+      <div class="head">
+        <span class="icon" style="background: linear-gradient(135deg, #f472b6, #a855f7);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </span>
+        <h3>Получить подписку</h3>
+      </div>
+      <p>Купи подписку чтобы получить доступ ко всем модулям и лоудеру.</p>
+      <a href="/#pricing" class="btn-download">Посмотреть тарифы</a>
+    </div>
+
+  </div>
+</div>
+
+<script src="api.js"></script>
+<script>
+  const token = localStorage.getItem('gdlc_token');
+  if (!token) window.location.href = 'login.html';
+
+  function fmtDate(iso) {
+    if (!iso) return '—';
+    return new Date(iso).toLocaleDateString('ru-RU', { day: '2-digit', month: 'long', year: 'numeric' });
+  }
+
+  async function loadDashboard() {
+    try {
+      const me = await api('/api/user/me', 'GET');
+
+      document.getElementById('welcome-title').textContent = `Привет, ${me.username}`;
+      document.getElementById('info-username').textContent = me.username;
+      document.getElementById('info-email').textContent    = me.email;
+      document.getElementById('info-role').textContent     = me.role;
+      document.getElementById('info-hwid').textContent     = me.hwid ? me.hwid.substring(0, 16) + '…' : 'не привязан';
+
+      const sub = me.subscription;
+      const badge = document.getElementById('sub-badge');
+      const badgeText = document.getElementById('sub-badge-text');
+
+      if (sub && sub.active) {
+        document.getElementById('sub-status').innerHTML = '<span class="sub-active">Активна</span>';
+        document.getElementById('sub-plan').textContent = sub.lifetime ? 'Lifetime' : (sub.plan || 'Basic');
+        document.getElementById('sub-expires').textContent = sub.lifetime ? 'Навсегда' : fmtDate(sub.expires_at);
+
+        badge.classList.remove('inactive');
+        badgeText.textContent = sub.lifetime ? 'Lifetime активна' : 'Подписка активна';
+
+        const btn = document.getElementById('download-btn');
+        btn.classList.remove('disabled');
+        btn.href = '/downloads/GlitchDLC-Setup.exe';
+        document.getElementById('download-desc').textContent = 'Подписка активна. Скачай свежую сборку лоудера и запускай клиент.';
+      } else {
+        document.getElementById('sub-status').innerHTML = '<span class="sub-expired">Не активна</span>';
+        document.getElementById('sub-plan').textContent = '—';
+        document.getElementById('sub-expires').textContent = '—';
+        badgeText.textContent = 'Без подписки';
+        document.getElementById('download-desc').textContent = 'Для скачивания лоудера нужна активная подписка.';
+        document.getElementById('buy-section').style.display = 'block';
+      }
+    } catch (err) {
+      if (err.status === 401) {
+        localStorage.removeItem('gdlc_token');
+        localStorage.removeItem('gdlc_user');
+        window.location.href = 'login.html';
+      }
+    }
+  }
+
+  document.getElementById('logout-btn').addEventListener('click', async () => {
+    try { await api('/api/auth/logout', 'POST'); } catch {}
+    localStorage.removeItem('gdlc_token');
+    localStorage.removeItem('gdlc_user');
+    window.location.href = '/';
+  });
+
+  loadDashboard();
+</script>
+</body>
+</html>
