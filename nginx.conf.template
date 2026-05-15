@@ -1,0 +1,42 @@
+server {
+    listen ${PORT};
+    server_name _;
+    root /usr/share/nginx/html;
+    index index.html;
+
+    # gzip
+    gzip on;
+    gzip_min_length 256;
+    gzip_proxied any;
+    gzip_types
+        text/plain
+        text/css
+        text/javascript
+        application/javascript
+        application/json
+        image/svg+xml;
+
+    # security
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+
+    # static cache
+    location ~* \.(css|js|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)$ {
+        expires 7d;
+        add_header Cache-Control "public, max-age=604800";
+        try_files $uri =404;
+    }
+
+    # 301 .html → clean URL (адресная строка без .html)
+    location ~ ^/(.+)\.html$ {
+        return 301 /$1;
+    }
+
+    # чистые URL: /login → /login.html
+    location / {
+        try_files $uri $uri.html $uri/ /index.html;
+    }
+
+    # 404 → красивая 404 страница (или index)
+    error_page 404 /index.html;
+}
