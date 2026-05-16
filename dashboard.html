@@ -117,8 +117,33 @@
         </span>
         <h3>Получить подписку</h3>
       </div>
-      <p>Купи подписку чтобы получить доступ ко всем модулям и лоудеру.</p>
+      <p>Купи подписку на FunPay и активируй ключ ниже, либо посмотри тарифы на главной.</p>
       <a href="/#pricing" class="btn-download">Посмотреть тарифы</a>
+    </div>
+
+    <!-- Активация ключа -->
+    <div class="download-section" style="margin-top:20px;">
+      <div class="head">
+        <span class="icon" style="background: linear-gradient(135deg, #6366f1, #8b5cf6);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg>
+        </span>
+        <h3>Активировать ключ</h3>
+      </div>
+      <p>Купил ключ на FunPay? Введи его сюда чтобы активировать подписку или сбросить HWID.</p>
+
+      <div class="msg error"   id="key-msg-error"></div>
+      <div class="msg success" id="key-msg-ok"></div>
+
+      <div style="display:flex; gap:8px; margin-top:8px; flex-wrap:wrap;">
+        <input type="text" id="key-input" placeholder="GDLC-XXXX-XXXX-XXXX-XXXX"
+          style="flex:1; min-width:240px; padding:12px 14px; background:rgba(7,7,11,.6);
+                 border:1px solid var(--line-strong); border-radius:var(--r); color:var(--text);
+                 font-family:var(--mono); font-size:.92rem; outline:none; letter-spacing:.04em; text-transform:uppercase;" />
+        <button class="btn-download" id="key-activate-btn" style="white-space:nowrap;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Активировать
+        </button>
+      </div>
     </div>
 
   </div>
@@ -188,6 +213,48 @@
     localStorage.removeItem('gdlc_token');
     localStorage.removeItem('gdlc_user');
     window.location.href = '/';
+  });
+
+  // ── Активация ключа ──────────────────────────────────────────────
+  const keyInput  = document.getElementById('key-input');
+  const keyBtn    = document.getElementById('key-activate-btn');
+  const keyOk     = document.getElementById('key-msg-ok');
+  const keyErr    = document.getElementById('key-msg-error');
+
+  function showKeyMsg(type, text) {
+    const el    = type === 'ok' ? keyOk : keyErr;
+    const other = type === 'ok' ? keyErr : keyOk;
+    other.style.display = 'none';
+    el.textContent = text;
+    el.style.display = 'flex';
+  }
+
+  // Авто-форматирование при вводе: GDLC-XXXX-XXXX-XXXX-XXXX
+  keyInput.addEventListener('input', (e) => {
+    let v = e.target.value.toUpperCase().replace(/[^A-Z0-9-]/g, '');
+    e.target.value = v;
+  });
+
+  keyBtn.addEventListener('click', async () => {
+    const code = keyInput.value.trim();
+    if (!code) { return showKeyMsg('error', 'Введите ключ'); }
+
+    keyBtn.disabled = true;
+    const prevText = keyBtn.innerHTML;
+    keyBtn.innerHTML = 'Активация...';
+
+    try {
+      const res = await api('/api/keys/activate', 'POST', { code });
+      showKeyMsg('ok', res.message || 'Готово');
+      keyInput.value = '';
+      // обновляем дашборд
+      setTimeout(() => loadDashboard(), 600);
+    } catch (e) {
+      showKeyMsg('error', e.message || 'Ошибка активации');
+    } finally {
+      keyBtn.disabled = false;
+      keyBtn.innerHTML = prevText;
+    }
   });
 
   loadDashboard();
