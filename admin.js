@@ -693,3 +693,46 @@ $('payload-upload-btn').addEventListener('click', async () => {
 });
 
 loadPayloads();
+
+
+// ─── bucket diagnostics ──────────────────────────────────────────
+$('test-bucket-btn').addEventListener('click', async () => {
+  const btn = $('test-bucket-btn');
+  btn.disabled = true;
+  const orig = btn.textContent.trim();
+  btn.textContent = '⏳ Проверяю...';
+  try {
+    const r = await api('/api/admin/payload/test_url', 'GET');
+    btn.textContent = orig;
+    const pretty = JSON.stringify(r, null, 2);
+
+    const w = window.open('', '_blank', 'width=720,height=520');
+    if (w) {
+      w.document.write(`
+        <html><head><title>Bucket diag</title>
+        <style>body{background:#07070b;color:#e5e7eb;font-family:monospace;padding:20px;font-size:13px;line-height:1.5;}
+        .ok{color:#10b981;font-weight:700;}
+        .err{color:#ef4444;font-weight:700;}
+        pre{background:#0f0f15;border:1px solid #2a2a35;border-radius:8px;padding:14px;overflow:auto;}</style>
+        </head><body>
+        <h2 class="${r.ok ? 'ok' : 'err'}">${r.ok ? '✅ Bucket работает' : '❌ Проблема: ' + (r.step || '?')}</h2>
+        <pre>${pretty.replace(/</g, '&lt;')}</pre>
+        </body></html>
+      `);
+    } else {
+      alert(pretty);
+    }
+    if (r.ok && r.size_match) {
+      toast('Bucket OK, размер совпадает', 'success');
+    } else if (r.ok && !r.size_match) {
+      toast(`Скачал ${r.downloaded_bytes} вместо ${r.expected_size}`, 'error');
+    } else {
+      toast(`Fail на шаге: ${r.step}`, 'error');
+    }
+  } catch (e) {
+    btn.textContent = orig;
+    toast('Ошибка: ' + e.message, 'error');
+  } finally {
+    btn.disabled = false;
+  }
+});
