@@ -390,3 +390,111 @@ $('rel-create').addEventListener('click', async () => {
 
 // load releases вместе с пользователями
 loadReleases();
+
+
+// ─── keys (FunPay activation) ────────────────────────────────────
+const PLAN_LABELS = {
+  month:      'Месяц',
+  quarter:    '3 месяца',
+  lifetime:   'Lifetime',
+  hwid_reset: 'Сброс HWID',
+};
+
+async function loadKeys() {
+  try {
+    const list = await api('/api/admin/keys', 'GET');
+    const tbody = $('keys-tbody');
+    if (!list.length) {
+      tbody.innerHTML = '<tr><td colspan="7" class="empty">Ключей пока нет. Сгенерируй первые.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = list.map(k => {
+      const status = k.used
+        ? '<span class="badge badge-inactive">Использован</span>'
+        : '<span class="badge badge-active">Свободен</span>';
+      const planLabel = PLAN_LABELS[k.plan] || k.plan;
+      const activatedBy = k.activated_by ? escape(k.activated_by) : '—';
+      return `
+        <tr>
+          <td class="mono"><strong>${escape(k.code)}</strong></td>
+          <td>${escape(planLabel)}</td>
+          <td class="muted-cell">${escape(k.note || '—')}</td>
+          <td>${status}</td>
+          <td class="muted-cell">
+            ${k.used ? activatedBy + '<br><span style="font-size:.7rem; opacity:.7;">' + fmtDate(k.activated_at) + '</span>' : '—'}
+          </td>
+          <td class="muted-cell">${fmtDate(k.created_at)}</td>
+          <td>
+            <button class="btn-row-action" data-id="${k.id}" data-act="copy" data-code="${escape(k.code)}">Копировать</button>
+            ${!k.used ? `<button class="btn-row-action" data-id="${k.id}" data-act="delete" style="color:#fca5a5; margin-left:4px;">×</button>` : ''}
+          </td>
+        </tr>
+      `;
+    }).join('');
+
+    tbody.querySelectorAll('button[data-act]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const id  = parseInt(btn.dataset.id, 10);
+        const act = btn.dataset.act;
+        if (act === 'copy') {
+          try {
+            await navigator.clipboard.writeText(btn.dataset.code);
+            toast('Скопировано в буфер', 'success');
+          } catch { toast('Не удалось скопировать', 'error'); }
+        } else if (act === 'delete') {
+          if (!confirm('Удалить ключ?')) return;
+          try {
+            await api('/api/admin/keys/delete', 'POST', { id });
+            toast('Удалён', 'success');
+            await loadKeys();
+          } catch (e) { toast(e.message, 'error'); }
+        }
+      });
+    });
+  } catch (e) {
+    if (e.status !== 403 && e.status !== 401) toast(e.message, 'error');
+  }
+}
+
+function openKeysModal() {
+  $('keys-plan').value  = 'quarter';
+  $('keys-count').value = 1;
+  $('keys-note').value  = '';
+  $('keys-result').style.display = 'none';
+  $('keys-result-list').value = '';
+  $('keys-modal').classList.add('open');
+}
+function closeKeysModal() {
+  $('keys-modal').classList.remove('open');
+}
+window.closeKeysModal = closeKeysModal;
+
+$('new-keys-btn').addEventListener('click', openKeysModal);
+
+$('keys-gen-confirm').addEventListener('click', async () => {
+  const plan  = $('keys-plan').value;
+  const count = parseInt($('keys-count').value, 10);
+  const note  = $('keys-note').value.trim();
+
+  if (!count || count < 1) return toast('Укажи количество', 'error');
+
+  try {
+    const res = await api('/api/admin/keys/generate', 'POST', { plan, count, note });
+    $('keys-result-count').textContent = res.count;
+    $('keys-result-list').value = res.keys.join('\n');
+    $('keys-result').style.display = 'block';
+    toast(`Сгенерировано ${res.count} ключей`, 'success');
+    await loadKeys();
+  } catch (e) { toast(e.message, 'error'); }
+});
+
+$('keys-copy-btn').addEventListener('click', async () => {
+  const text = $('keys-result-list').value;
+  if (!text) return;
+  try {
+    await navigator.clipboard.writeText(text);
+    toast('Скопировано', 'success');
+  } catch { toast('Не удалось скопировать', 'error'); }
+});
+
+loadKeys();
