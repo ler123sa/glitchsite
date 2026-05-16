@@ -86,7 +86,7 @@ function renderUsers(list) {
 
     return `
       <tr data-uid="${u.id}">
-        <td class="muted-cell">#${u.id}</td>
+        <td class="mono"><strong style="color:var(--brand-2);">#${u.id}</strong></td>
         <td>
           <div class="user-cell">
             <div class="user-avatar">${initials(u.username)}</div>
