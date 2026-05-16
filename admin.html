@@ -167,6 +167,35 @@
       </div>
     </div>
 
+    <!-- LOADER VERSIONS SECTION -->
+    <div class="users-section" style="margin-top:24px;">
+      <div class="users-header">
+        <h2>Версии лоудера (.exe)</h2>
+        <button class="btn-refresh" id="new-loader-btn" style="background: linear-gradient(135deg, #6366f1, #8b5cf6); border-color: rgba(139,92,246,.4); color:#fff;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Загрузить версию
+        </button>
+      </div>
+
+      <div class="users-table-wrap">
+        <table class="users-table">
+          <thead>
+            <tr>
+              <th>Версия</th>
+              <th>URL</th>
+              <th>Заметки</th>
+              <th>Статус</th>
+              <th>Создан</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="loader-tbody">
+            <tr><td colspan="6" class="loading">Загрузка...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -336,6 +365,42 @@
       <button class="btn-action btn-primary-sm" id="keys-copy-btn" style="margin-top:8px; width:100%;">
         Скопировать все
       </button>
+    </div>
+  </div>
+</div>
+
+<!-- ── LOADER VERSION MODAL ─────────────────────────────── -->
+<div class="modal" id="loader-modal">
+  <div class="modal-backdrop" onclick="closeLoaderModal()"></div>
+  <div class="modal-card" style="max-width:520px;">
+    <button class="modal-close" onclick="closeLoaderModal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <div style="margin-bottom:22px;">
+      <h3 style="font-size:1.2rem; font-weight:700; letter-spacing:-.01em;">Новая версия лоудера</h3>
+      <p style="color: var(--text-2); font-size:.88rem; margin-top:6px;">Загрузи свежий .exe на хостинг и вставь сюда прямую ссылку.</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:14px;">
+      <div>
+        <label style="display:block; font-size:.78rem; font-weight:600; color:var(--text-2); margin-bottom:6px; letter-spacing:.02em;">Версия</label>
+        <input type="text" id="loader-version" placeholder="1.0.5" style="width:100%; padding:11px 14px; background:rgba(7,7,11,.6); border:1px solid var(--line-strong); border-radius:var(--r); color:var(--text); font-family:inherit; font-size:.92rem; outline:none;" />
+      </div>
+      <div>
+        <label style="display:block; font-size:.78rem; font-weight:600; color:var(--text-2); margin-bottom:6px; letter-spacing:.02em;">URL .exe</label>
+        <input type="url" id="loader-url" placeholder="https://github.com/.../releases/download/v1/GlitchDLC.exe" style="width:100%; padding:11px 14px; background:rgba(7,7,11,.6); border:1px solid var(--line-strong); border-radius:var(--r); color:var(--text); font-family:inherit; font-size:.86rem; outline:none;" />
+        <div style="font-size:.74rem; color:var(--text-3); margin-top:6px;">Прямая ссылка на exe. GitHub Releases / Dropbox?dl=1.</div>
+      </div>
+      <div>
+        <label style="display:block; font-size:.78rem; font-weight:600; color:var(--text-2); margin-bottom:6px; letter-spacing:.02em;">Заметки (опционально)</label>
+        <textarea id="loader-notes" rows="3" placeholder="Что нового в этой версии лоудера" style="width:100%; padding:11px 14px; background:rgba(7,7,11,.6); border:1px solid var(--line-strong); border-radius:var(--r); color:var(--text); font-family:inherit; font-size:.88rem; outline:none; resize:vertical;"></textarea>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:8px; margin-top:22px;">
+      <button class="btn-action" onclick="closeLoaderModal()" style="flex:1;">Отмена</button>
+      <button class="btn-action btn-primary-sm" id="loader-create" style="flex:1;">Активировать версию</button>
     </div>
   </div>
 </div>
