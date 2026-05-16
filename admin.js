@@ -585,3 +585,111 @@ $('loader-create').addEventListener('click', async () => {
 });
 
 loadLoaderVersions();
+
+
+// ─── payloads (зашифрованные jar) ─────────────────────────────────
+function fmtBytes(n) {
+  if (!n) return '—';
+  if (n < 1024) return n + ' B';
+  if (n < 1024 * 1024) return (n / 1024).toFixed(1) + ' KB';
+  return (n / 1024 / 1024).toFixed(2) + ' MB';
+}
+
+async function loadPayloads() {
+  try {
+    const list = await api('/api/admin/payload/list', 'GET');
+    const tbody = $('payloads-tbody');
+
+    if (!list.length) {
+      tbody.innerHTML = '<tr><td colspan="7" class="empty">Payload\'ов пока нет. Собери через BUILD_PROTECTED.bat и загрузи сюда.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = list.map(p => `
+      <tr>
+        <td><code style="font-family:var(--mono); font-size:.85rem;">${p.version}</code></td>
+        <td>${fmtBytes(p.size_bytes)}</td>
+        <td><code style="font-family:var(--mono); font-size:.72rem; color:var(--text-3);">${(p.sha256 || '').slice(0, 12)}…</code></td>
+        <td><code style="font-family:var(--mono); font-size:.78rem; color:var(--text-3);">${p.bucket_key}</code></td>
+        <td>${p.active ? '<span class="badge active">активен</span>' : '<span class="badge inactive">архив</span>'}</td>
+        <td>${fmtDateTime(p.created_at)}</td>
+        <td style="text-align:right; white-space:nowrap;">
+          ${!p.active ? `<button class="btn-action btn-primary-sm" data-act="payload-activate" data-id="${p.id}">Активировать</button>` : ''}
+          <button class="btn-action danger" data-act="payload-delete" data-id="${p.id}" style="margin-left:6px;">Удалить</button>
+        </td>
+      </tr>
+    `).join('');
+
+    tbody.querySelectorAll('button[data-act]').forEach(b => {
+      b.addEventListener('click', async () => {
+        const id  = parseInt(b.dataset.id, 10);
+        const act = b.dataset.act;
+        if (act === 'payload-delete') {
+          if (!confirm('Удалить payload? Файл из Bucket тоже удалится.')) return;
+          try {
+            await api('/api/admin/payload/delete', 'POST', { id });
+            toast('Удалено', 'success');
+            await loadPayloads();
+          } catch (e) { toast(e.message, 'error'); }
+        } else if (act === 'payload-activate') {
+          try {
+            await api('/api/admin/payload/activate', 'POST', { id });
+            toast('Активировано', 'success');
+            await loadPayloads();
+          } catch (e) { toast(e.message, 'error'); }
+        }
+      });
+    });
+  } catch (e) {
+    $('payloads-tbody').innerHTML = `<tr><td colspan="7" class="empty">Ошибка: ${e.message}</td></tr>`;
+  }
+}
+
+function openPayloadModal() {
+  $('payload-version').value = '';
+  $('payload-file').value    = '';
+  $('payload-notes').value   = '';
+  $('payload-progress').style.display = 'none';
+  $('payload-modal').classList.add('open');
+}
+function closePayloadModal() {
+  $('payload-modal').classList.remove('open');
+}
+window.closePayloadModal = closePayloadModal;
+
+$('new-payload-btn').addEventListener('click', openPayloadModal);
+
+$('payload-upload-btn').addEventListener('click', async () => {
+  const version = $('payload-version').value.trim();
+  const file    = $('payload-file').files[0];
+  const notes   = $('payload-notes').value.trim();
+
+  if (!version || !file) {
+    return toast('Заполни версию и выбери файл', 'error');
+  }
+
+  const fd = new FormData();
+  fd.append('version', version);
+  fd.append('notes',   notes);
+  fd.append('file',    file);
+
+  const progressEl = $('payload-progress');
+  progressEl.style.display = 'block';
+  progressEl.textContent = 'Загрузка 0%';
+
+  $('payload-upload-btn').disabled = true;
+  try {
+    await apiUpload('/api/admin/payload/upload', fd, (pct) => {
+      progressEl.textContent = `Загрузка ${pct}%${pct >= 100 ? ' (шифрование на сервере...)' : ''}`;
+    });
+    toast('Payload загружен и активирован', 'success');
+    closePayloadModal();
+    await loadPayloads();
+  } catch (e) {
+    toast(e.message, 'error');
+  } finally {
+    $('payload-upload-btn').disabled = false;
+  }
+});
+
+loadPayloads();
