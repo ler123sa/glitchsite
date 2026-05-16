@@ -171,10 +171,16 @@
     <div class="users-section" style="margin-top:24px;">
       <div class="users-header">
         <h2>Защищённые payload'ы (зашифр. jar)</h2>
-        <button class="btn-refresh" id="new-payload-btn" style="background: linear-gradient(135deg, #10b981, #06b6d4); border-color: rgba(16,185,129,.4); color:#fff;">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          Загрузить payload
-        </button>
+        <div style="display:flex; gap:8px;">
+          <button class="btn-refresh" id="test-bucket-btn" style="background: rgba(7,7,11,.6); border-color: var(--line-strong);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            Тест Bucket
+          </button>
+          <button class="btn-refresh" id="new-payload-btn" style="background: linear-gradient(135deg, #10b981, #06b6d4); border-color: rgba(16,185,129,.4); color:#fff;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Загрузить payload
+          </button>
+        </div>
       </div>
 
       <div class="users-table-wrap">
