@@ -102,6 +102,7 @@
         Информация об аккаунте
       </div>
       <div class="account-info">
+        <div class="row"><span class="k">UID</span><span class="v" id="info-uid">—</span></div>
         <div class="row"><span class="k">Никнейм</span><span class="v" id="info-username">—</span></div>
         <div class="row"><span class="k">Email</span><span class="v" id="info-email">—</span></div>
         <div class="row"><span class="k">Роль</span><span class="v" id="info-role">—</span></div>
@@ -164,6 +165,7 @@
       const me = await api('/api/user/me', 'GET');
 
       document.getElementById('welcome-title').textContent = `Привет, ${me.username}`;
+      document.getElementById('info-uid').textContent      = '#' + me.id;
       document.getElementById('info-username').textContent = me.username;
       document.getElementById('info-email').textContent    = me.email;
       document.getElementById('info-role').textContent     = me.role;
