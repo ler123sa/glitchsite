@@ -499,6 +499,107 @@ $('loader-create').addEventListener('click', async () => {
 loadLoaderVersions();
 
 
+// ─── stub versions (.jar в mods/) ────────────────────────────────
+async function loadStubVersions() {
+  try {
+    const list = await api('/api/admin/stub/list', 'GET');
+    const tbody = $('stub-tbody');
+    if (!list.length) {
+      tbody.innerHTML = '<tr><td colspan="7" class="empty">Версий stub-мода пока нет.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = list.map(r => {
+      const status = r.active
+        ? '<span class="badge badge-active">Активна</span>'
+        : '<span class="badge badge-inactive">Архив</span>';
+      const shortUrl = r.url.length > 40 ? r.url.slice(0, 38) + '…' : r.url;
+      const shortSha = r.sha256 ? r.sha256.slice(0, 12) + '…' : '—';
+      return `
+        <tr>
+          <td><strong>${escape(r.version)}</strong></td>
+          <td class="mono"><a href="${escape(r.url)}" target="_blank" rel="noopener" style="color:var(--brand-2); text-decoration:none;">${escape(shortUrl)}</a></td>
+          <td class="mono"><span style="font-size:.72rem; color:var(--text-3);">${escape(shortSha)}</span></td>
+          <td class="muted-cell">${escape(r.notes || '—')}</td>
+          <td>${status}</td>
+          <td class="muted-cell">${fmtDate(r.created_at)}</td>
+          <td>
+            ${!r.active ? `<button class="btn-row-action" data-act="stub-activate" data-id="${r.id}">Активировать</button>` : ''}
+            <button class="btn-row-action" data-act="stub-delete" data-id="${r.id}" style="color:#fca5a5; margin-left:4px;">Удалить</button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+
+    tbody.querySelectorAll('button[data-act]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const id  = parseInt(btn.dataset.id, 10);
+        const act = btn.dataset.act;
+        if (act === 'stub-delete') {
+          if (!confirm('Удалить эту версию stub-мода?')) return;
+          try {
+            await api('/api/admin/stub/delete', 'POST', { id });
+            toast('Удалено', 'success');
+            await loadStubVersions();
+          } catch (e) { toast(e.message, 'error'); }
+        } else if (act === 'stub-activate') {
+          if (!confirm('Сделать эту версию активной?')) return;
+          try {
+            await api('/api/admin/stub/activate', 'POST', { id });
+            toast('Активировано', 'success');
+            await loadStubVersions();
+          } catch (e) { toast(e.message, 'error'); }
+        }
+      });
+    });
+  } catch (e) {
+    if (e.status !== 403 && e.status !== 401) toast(e.message, 'error');
+  }
+}
+
+function openStubModal() {
+  $('stub-version').value = '';
+  $('stub-url').value     = '';
+  $('stub-sha256').value  = '';
+  $('stub-size').value    = '';
+  $('stub-notes').value   = '';
+  $('stub-modal').classList.add('open');
+}
+function closeStubModal() {
+  $('stub-modal').classList.remove('open');
+}
+window.closeStubModal = closeStubModal;
+
+$('new-stub-btn').addEventListener('click', openStubModal);
+
+$('stub-create').addEventListener('click', async () => {
+  const version    = $('stub-version').value.trim();
+  const url        = $('stub-url').value.trim();
+  const sha256Raw  = $('stub-sha256').value.trim().toLowerCase();
+  const sizeRaw    = $('stub-size').value.trim();
+  const notes      = $('stub-notes').value.trim();
+
+  if (!version || !url) {
+    return toast('Заполни версию и URL', 'error');
+  }
+  if (sha256Raw && !/^[0-9a-f]{64}$/.test(sha256Raw)) {
+    return toast('SHA-256 должен быть 64 hex-символа', 'error');
+  }
+
+  const body = { version, url, notes };
+  if (sha256Raw) body.sha256 = sha256Raw;
+  if (sizeRaw)   body.size_bytes = parseInt(sizeRaw, 10);
+
+  try {
+    await api('/api/admin/stub/create', 'POST', body);
+    toast('Stub активирован', 'success');
+    closeStubModal();
+    await loadStubVersions();
+  } catch (e) { toast(e.message, 'error'); }
+});
+
+loadStubVersions();
+
+
 // ─── payloads (зашифрованные jar) ─────────────────────────────────
 function fmtBytes(n) {
   if (!n) return '—';
