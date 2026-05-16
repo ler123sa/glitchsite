@@ -498,3 +498,90 @@ $('keys-copy-btn').addEventListener('click', async () => {
 });
 
 loadKeys();
+
+
+// ─── loader versions (.exe) ──────────────────────────────────────
+async function loadLoaderVersions() {
+  try {
+    const list = await api('/api/admin/loader/versions', 'GET');
+    const tbody = $('loader-tbody');
+    if (!list.length) {
+      tbody.innerHTML = '<tr><td colspan="6" class="empty">Версий лоудера пока нет.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = list.map(r => {
+      const status = r.active
+        ? '<span class="badge badge-active">Активна</span>'
+        : '<span class="badge badge-inactive">Архив</span>';
+      const shortUrl = r.url.length > 40 ? r.url.slice(0, 38) + '…' : r.url;
+      return `
+        <tr>
+          <td><strong>${escape(r.version)}</strong></td>
+          <td class="mono"><a href="${escape(r.url)}" target="_blank" rel="noopener" style="color:var(--brand-2); text-decoration:none;">${escape(shortUrl)}</a></td>
+          <td class="muted-cell">${escape(r.notes || '—')}</td>
+          <td>${status}</td>
+          <td class="muted-cell">${fmtDate(r.created_at)}</td>
+          <td>
+            ${!r.active ? `<button class="btn-row-action" data-act="loader-activate" data-id="${r.id}">Активировать</button>` : ''}
+            <button class="btn-row-action" data-act="loader-delete" data-id="${r.id}" style="color:#fca5a5; margin-left:4px;">Удалить</button>
+          </td>
+        </tr>
+      `;
+    }).join('');
+
+    tbody.querySelectorAll('button[data-act]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const id  = parseInt(btn.dataset.id, 10);
+        const act = btn.dataset.act;
+        if (act === 'loader-delete') {
+          if (!confirm('Удалить эту версию лоудера?')) return;
+          try {
+            await api('/api/admin/loader/delete', 'POST', { id });
+            toast('Удалено', 'success');
+            await loadLoaderVersions();
+          } catch (e) { toast(e.message, 'error'); }
+        } else if (act === 'loader-activate') {
+          if (!confirm('Сделать эту версию активной?')) return;
+          try {
+            await api('/api/admin/loader/activate', 'POST', { id });
+            toast('Активировано', 'success');
+            await loadLoaderVersions();
+          } catch (e) { toast(e.message, 'error'); }
+        }
+      });
+    });
+  } catch (e) {
+    if (e.status !== 403 && e.status !== 401) toast(e.message, 'error');
+  }
+}
+
+function openLoaderModal() {
+  $('loader-version').value = '';
+  $('loader-url').value     = '';
+  $('loader-notes').value   = '';
+  $('loader-modal').classList.add('open');
+}
+function closeLoaderModal() {
+  $('loader-modal').classList.remove('open');
+}
+window.closeLoaderModal = closeLoaderModal;
+
+$('new-loader-btn').addEventListener('click', openLoaderModal);
+
+$('loader-create').addEventListener('click', async () => {
+  const version = $('loader-version').value.trim();
+  const url     = $('loader-url').value.trim();
+  const notes   = $('loader-notes').value.trim();
+
+  if (!version || !url) {
+    return toast('Заполни версию и URL', 'error');
+  }
+  try {
+    await api('/api/admin/loader/create', 'POST', { version, url, notes });
+    toast('Версия активирована', 'success');
+    closeLoaderModal();
+    await loadLoaderVersions();
+  } catch (e) { toast(e.message, 'error'); }
+});
+
+loadLoaderVersions();
