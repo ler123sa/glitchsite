@@ -167,6 +167,36 @@
       </div>
     </div>
 
+    <!-- PAYLOADS SECTION -->
+    <div class="users-section" style="margin-top:24px;">
+      <div class="users-header">
+        <h2>Защищённые payload'ы (зашифр. jar)</h2>
+        <button class="btn-refresh" id="new-payload-btn" style="background: linear-gradient(135deg, #10b981, #06b6d4); border-color: rgba(16,185,129,.4); color:#fff;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          Загрузить payload
+        </button>
+      </div>
+
+      <div class="users-table-wrap">
+        <table class="users-table">
+          <thead>
+            <tr>
+              <th>Версия</th>
+              <th>Размер</th>
+              <th>SHA-256</th>
+              <th>Bucket</th>
+              <th>Статус</th>
+              <th>Создан</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="payloads-tbody">
+            <tr><td colspan="7" class="loading">Загрузка...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
     <!-- LOADER VERSIONS SECTION -->
     <div class="users-section" style="margin-top:24px;">
       <div class="users-header">
@@ -402,6 +432,44 @@
       <button class="btn-action" onclick="closeLoaderModal()" style="flex:1;">Отмена</button>
       <button class="btn-action btn-primary-sm" id="loader-create" style="flex:1;">Активировать версию</button>
     </div>
+  </div>
+</div>
+
+<!-- ── PAYLOAD UPLOAD MODAL ─────────────────────────────── -->
+<div class="modal" id="payload-modal">
+  <div class="modal-backdrop" onclick="closePayloadModal()"></div>
+  <div class="modal-card" style="max-width:520px;">
+    <button class="modal-close" onclick="closePayloadModal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <div style="margin-bottom:22px;">
+      <h3 style="font-size:1.2rem; font-weight:700; letter-spacing:-.01em;">Загрузить защищённый payload</h3>
+      <p style="color: var(--text-2); font-size:.88rem; margin-top:6px;">Файл будет зашифрован AES-GCM и залит в Bucket. Сырой jar нигде не сохраняется.</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:14px;">
+      <div>
+        <label style="display:block; font-size:.78rem; font-weight:600; color:var(--text-2); margin-bottom:6px; letter-spacing:.02em;">Версия</label>
+        <input type="text" id="payload-version" placeholder="1.0.0" style="width:100%; padding:11px 14px; background:rgba(7,7,11,.6); border:1px solid var(--line-strong); border-radius:var(--r); color:var(--text); font-family:inherit; font-size:.92rem; outline:none;" />
+      </div>
+      <div>
+        <label style="display:block; font-size:.78rem; font-weight:600; color:var(--text-2); margin-bottom:6px; letter-spacing:.02em;">Файл .jar (после grunt+proguard+remap)</label>
+        <input type="file" id="payload-file" accept=".jar" style="width:100%; padding:11px 14px; background:rgba(7,7,11,.6); border:1px solid var(--line-strong); border-radius:var(--r); color:var(--text); font-family:inherit; font-size:.86rem; outline:none;" />
+        <div style="font-size:.74rem; color:var(--text-3); margin-top:6px;">Выходной файл из BUILD_PROTECTED.bat (например, onetap-1.0.0-protected.jar).</div>
+      </div>
+      <div>
+        <label style="display:block; font-size:.78rem; font-weight:600; color:var(--text-2); margin-bottom:6px; letter-spacing:.02em;">Заметки (опционально)</label>
+        <textarea id="payload-notes" rows="3" placeholder="Что в этой версии" style="width:100%; padding:11px 14px; background:rgba(7,7,11,.6); border:1px solid var(--line-strong); border-radius:var(--r); color:var(--text); font-family:inherit; font-size:.88rem; outline:none; resize:vertical;"></textarea>
+      </div>
+    </div>
+
+    <div style="display:flex; gap:8px; margin-top:22px;">
+      <button class="btn-action" onclick="closePayloadModal()" style="flex:1;">Отмена</button>
+      <button class="btn-action btn-primary-sm" id="payload-upload-btn" style="flex:1;">Загрузить</button>
+    </div>
+
+    <div id="payload-progress" style="display:none; margin-top:14px; font-size:.84rem; color:var(--text-2);"></div>
   </div>
 </div>
 
