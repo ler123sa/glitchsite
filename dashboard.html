@@ -187,10 +187,21 @@
         badge.classList.remove('inactive');
         badgeText.textContent = sub.lifetime ? 'Lifetime активна' : 'Подписка активна';
 
-        const btn = document.getElementById('download-btn');
-        btn.classList.remove('disabled');
-        btn.href = '/downloads/GlitchDLC-Setup.exe';
-        document.getElementById('download-desc').textContent = 'Подписка активна. Скачай свежую сборку лоудера и запускай клиент.';
+        // Пробуем подтянуть актуальную версию лоудера
+        try {
+          const lv = await api('/api/loader/version', 'GET');
+          const btn = document.getElementById('download-btn');
+          btn.classList.remove('disabled');
+          btn.href = lv.url;
+          btn.setAttribute('target', '_blank');
+          btn.setAttribute('rel', 'noopener');
+          document.getElementById('download-desc').textContent =
+            `Версия ${lv.version}. Скачай лоудер и запусти GlitchDLC одной кнопкой.`;
+        } catch (e) {
+          // лоудер ещё не залит
+          document.getElementById('download-desc').textContent =
+            'Лоудер скоро появится здесь. Подписка уже активна.';
+        }
       } else {
         document.getElementById('sub-status').innerHTML = '<span class="sub-expired">Не активна</span>';
         document.getElementById('sub-plan').textContent = '—';
