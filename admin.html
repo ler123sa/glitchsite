@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Админка — GlitchDLC</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="admin.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="/">
+      <span class="logo-mark"></span>
+      Glitch<span>DLC</span>
+      <span class="admin-tag">admin</span>
+    </a>
+    <div class="nav-links">
+      <a href="/dashboard" class="btn-nav">Кабинет</a>
+      <button class="logout-btn" id="logout-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        Выйти
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="admin-page">
+  <div class="hero-glow g3" style="top:-200px; left:-200px; opacity:.15;"></div>
+
+  <div class="admin-inner">
+
+    <!-- HEADER -->
+    <div class="admin-header">
+      <div>
+        <h1>Панель управления</h1>
+        <p class="welcome">Управление пользователями и подписками</p>
+      </div>
+      <button class="btn-refresh" id="refresh-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M3 21v-5h5"/></svg>
+        Обновить
+      </button>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Пользователей
+        </div>
+        <div class="stat-value" id="stat-users">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Активных подписок
+        </div>
+        <div class="stat-value" id="stat-active">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12c0-1.66-4-3-9-3s-9 1.34-9 3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg>
+          Lifetime
+        </div>
+        <div class="stat-value" id="stat-lifetime">—</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+          Забанено
+        </div>
+        <div class="stat-value" id="stat-banned">—</div>
+      </div>
+    </div>
+
+    <!-- USERS TABLE -->
+    <div class="users-section">
+      <div class="users-header">
+        <h2>Пользователи</h2>
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" id="search" placeholder="Поиск по никнейму или email..." />
+        </div>
+      </div>
+
+      <div class="users-table-wrap">
+        <table class="users-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Пользователь</th>
+              <th>Подписка</th>
+              <th>Роль</th>
+              <th>Статус</th>
+              <th>Регистрация</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="users-tbody">
+            <tr><td colspan="7" class="loading">Загрузка...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ── MODAL ─────────────────────────────────────────────────── -->
+<div class="modal" id="user-modal">
+  <div class="modal-backdrop" onclick="closeModal()"></div>
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeModal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <div id="modal-loading" class="modal-loading">Загрузка...</div>
+
+    <div id="modal-content" style="display:none;">
+      <div class="modal-head">
+        <div class="user-avatar" id="m-avatar">A</div>
+        <div>
+          <h3 id="m-username">—</h3>
+          <p id="m-email" class="muted">—</p>
+        </div>
+        <span class="role-badge" id="m-role">user</span>
+      </div>
+
+      <div class="modal-info">
+        <div class="info-row"><span class="k">ID</span><span class="v" id="m-id">—</span></div>
+        <div class="info-row"><span class="k">HWID</span><span class="v" id="m-hwid">—</span></div>
+        <div class="info-row"><span class="k">Создан</span><span class="v" id="m-created">—</span></div>
+        <div class="info-row"><span class="k">Подписка</span><span class="v" id="m-sub">—</span></div>
+      </div>
+
+      <!-- Actions -->
+      <div class="modal-section">
+        <h4>Выдать подписку</h4>
+        <div class="grant-row">
+          <select id="grant-plan">
+            <option value="month">Месяц (30 дней)</option>
+            <option value="quarter" selected>3 месяца (90 дней)</option>
+            <option value="lifetime">Lifetime (навсегда)</option>
+            <option value="custom">Кастомное число дней</option>
+          </select>
+          <input type="number" id="grant-days" placeholder="дней" style="display:none;" min="1" />
+          <button class="btn-action btn-primary-sm" id="btn-grant">Выдать</button>
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <h4>Действия</h4>
+        <div class="actions-grid">
+          <button class="btn-action" id="btn-reset-hwid">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
+            Сброс HWID
+          </button>
+          <button class="btn-action" id="btn-revoke">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg>
+            Отозвать подписку
+          </button>
+          <button class="btn-action" id="btn-toggle-role">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+            <span id="role-btn-text">Сделать админом</span>
+          </button>
+          <button class="btn-action danger" id="btn-ban">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            <span id="ban-btn-text">Забанить</span>
+          </button>
+          <button class="btn-action danger-strong" id="btn-delete">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+            Удалить аккаунт
+          </button>
+        </div>
+      </div>
+
+      <!-- History -->
+      <div class="modal-section" id="history-section" style="display:none;">
+        <h4>История подписок</h4>
+        <div class="history-list" id="history-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script src="api.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
