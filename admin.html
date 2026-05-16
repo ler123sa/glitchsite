@@ -137,6 +137,36 @@
       </div>
     </div>
 
+    <!-- KEYS SECTION -->
+    <div class="users-section" style="margin-top:24px;">
+      <div class="users-header">
+        <h2>Ключи активации (FunPay)</h2>
+        <button class="btn-refresh" id="new-keys-btn" style="background: linear-gradient(135deg, #f472b6, #a855f7); border-color: rgba(244,114,182,.4); color:#fff;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg>
+          Сгенерировать ключи
+        </button>
+      </div>
+
+      <div class="users-table-wrap">
+        <table class="users-table">
+          <thead>
+            <tr>
+              <th>Ключ</th>
+              <th>План</th>
+              <th>Заметка</th>
+              <th>Статус</th>
+              <th>Активирован</th>
+              <th>Создан</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="keys-tbody">
+            <tr><td colspan="7" class="loading">Загрузка...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -252,6 +282,60 @@
     <div style="display:flex; gap:8px; margin-top:22px;">
       <button class="btn-action" onclick="closeReleaseModal()" style="flex:1;">Отмена</button>
       <button class="btn-action btn-primary-sm" id="rel-create" style="flex:1;">Создать релиз</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── KEYS GENERATE MODAL ──────────────────────────────── -->
+<div class="modal" id="keys-modal">
+  <div class="modal-backdrop" onclick="closeKeysModal()"></div>
+  <div class="modal-card" style="max-width:520px;">
+    <button class="modal-close" onclick="closeKeysModal()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+
+    <div style="margin-bottom:22px;">
+      <h3 style="font-size:1.2rem; font-weight:700; letter-spacing:-.01em;">Сгенерировать ключи</h3>
+      <p style="color: var(--text-2); font-size:.88rem; margin-top:6px;">Каждый ключ — одноразовый. Скопируй и помести в автовыдачу FunPay.</p>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:14px;">
+      <div>
+        <label style="display:block; font-size:.78rem; font-weight:600; color:var(--text-2); margin-bottom:6px; letter-spacing:.02em;">План</label>
+        <select id="keys-plan" style="width:100%; padding:11px 14px; background:rgba(7,7,11,.6); border:1px solid var(--line-strong); border-radius:var(--r); color:var(--text); font-family:inherit; font-size:.92rem; outline:none;">
+          <option value="month">Месяц (30 дней) — 149 ₽</option>
+          <option value="quarter" selected>3 месяца (90 дней) — 399 ₽</option>
+          <option value="lifetime">Lifetime (навсегда) — 699 ₽</option>
+          <option value="hwid_reset">Сброс HWID — 349 ₽</option>
+        </select>
+      </div>
+      <div>
+        <label style="display:block; font-size:.78rem; font-weight:600; color:var(--text-2); margin-bottom:6px; letter-spacing:.02em;">Количество</label>
+        <input type="number" id="keys-count" value="1" min="1" max="500"
+          style="width:100%; padding:11px 14px; background:rgba(7,7,11,.6); border:1px solid var(--line-strong); border-radius:var(--r); color:var(--text); font-family:inherit; font-size:.92rem; outline:none;" />
+      </div>
+      <div>
+        <label style="display:block; font-size:.78rem; font-weight:600; color:var(--text-2); margin-bottom:6px; letter-spacing:.02em;">Заметка (опционально)</label>
+        <input type="text" id="keys-note" placeholder="FunPay batch 1, partner_xyz и т.п."
+          style="width:100%; padding:11px 14px; background:rgba(7,7,11,.6); border:1px solid var(--line-strong); border-radius:var(--r); color:var(--text); font-family:inherit; font-size:.92rem; outline:none;" />
+      </div>
+    </div>
+
+    <div style="display:flex; gap:8px; margin-top:22px;">
+      <button class="btn-action" onclick="closeKeysModal()" style="flex:1;">Отмена</button>
+      <button class="btn-action btn-primary-sm" id="keys-gen-confirm" style="flex:1;">Сгенерировать</button>
+    </div>
+
+    <!-- результат -->
+    <div id="keys-result" style="display:none; margin-top:20px;">
+      <div style="font-size:.78rem; font-weight:600; color:var(--text-2); margin-bottom:8px; letter-spacing:.02em; text-transform:uppercase;">
+        Сгенерировано <span id="keys-result-count">0</span>:
+      </div>
+      <textarea id="keys-result-list" readonly rows="6"
+        style="width:100%; padding:12px 14px; background:rgba(7,7,11,.7); border:1px solid var(--line-strong); border-radius:var(--r); color:var(--text); font-family:var(--mono); font-size:.82rem; outline:none; resize:vertical; letter-spacing:.02em;"></textarea>
+      <button class="btn-action btn-primary-sm" id="keys-copy-btn" style="margin-top:8px; width:100%;">
+        Скопировать все
+      </button>
     </div>
   </div>
 </div>
